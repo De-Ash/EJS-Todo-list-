@@ -8,10 +8,15 @@
     <title>Todo List</title>
 </head>
 <body>
-    <% if (kindaDay=="Monday"){ %> 
-        <h1 class="Sunday"><%= kindaDay %> List</h1>
-    <% } else{ %> 
-        <h1 class="Any"><%= kindaDay %> List</h1>
-        <% } %> 
+        <h1 class="Sunday"><%= kindaDay %></h1>
+        <ul>
+            <% for( let i = 0; i < newListItems.length; i++ ) { %>
+                <li><%= newListItems[i] %></li>
+            <% } %>
+        </ul>
+        <form action="/" method="post">
+            <input type="text" name="item" placeholder="new item">
+            <input type="submit" value="Add" name="submit">
+        </form>
 </body>
 </html>

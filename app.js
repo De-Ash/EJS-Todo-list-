@@ -4,14 +4,24 @@ const bodyParser=require("body-parser");
 const app=express();
 
 app.use(bodyParser.urlencoded({extended:true}));
+var newItems=["first item","second item"];
 app.use(express.static("Public"));
 app.set("view engine","ejs");
 app.get("/",(req,res)=>{
     var date= new Date();
-    var today= date.getDay();
-    var weekDays=["Sun","Mon","Tues","Wednes","Thurs","Fri","Satur"];
-    var day= weekDays[today]+"day";
-    res.render("list",{kindaDay:day});
+    var Options={
+        weekday:"long",
+        day:"numeric",
+        month:"short",
+    };
+    var today=date.toLocaleDateString("en-US",Options);
+    var day=today;
+    res.render("list",{kindaDay:day,newListItems:newItems});
+});
+app.post("/",(req,res)=>{
+    var item=req.body.item;
+    newItems.push(item);
+    res.redirect("/");
 });
 app.listen(3000,()=>{
     console.log("Ash kun.. new server started at post 3000");
