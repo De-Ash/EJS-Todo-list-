@@ -4,22 +4,22 @@ const bodyParser=require("body-parser");
 const app=express();
 
 app.use(bodyParser.urlencoded({extended:true}));
-var newItems=["first item","second item"];
+let newItems=["first item","second item"];
 app.use(express.static("Public"));
 app.set("view engine","ejs");
 app.get("/",(req,res)=>{
-    var date= new Date();
-    var Options={
+    let date= new Date();
+    let Options={
         weekday:"long",
         day:"numeric",
         month:"short",
     };
-    var today=date.toLocaleDateString("en-US",Options);
-    var day=today;
+    let today=date.toLocaleDateString("en-US",Options);
+    let day=today;
     res.render("list",{kindaDay:day,newListItems:newItems});
 });
 app.post("/",(req,res)=>{
-    var item=req.body.item;
+    let item=req.body.item;
     newItems.push(item);
     res.redirect("/");
 });
