@@ -1,23 +1,16 @@
 // jshint esversion:6
 const express=require("express");
 const bodyParser=require("body-parser");
+const date=require(__dirname+"/date.js");
 const app=express();
-
 app.use(bodyParser.urlencoded({extended:true}));
-let newItems=[];
-let workItems=[];
+const newItems=[];
+const workItems=[];
 app.use(express.static("Public"));
 app.set("view engine","ejs");
 app.get("/",(req,res)=>{
-    let date= new Date();
-    let Options={
-        weekday:"long",
-        day:"numeric",
-        month:"short",
-    };
-    let day=date.toLocaleDateString("en-US",Options);
-    let today=day;
-        res.render("list",{listTitle:today,newListItems:newItems});
+    let today=date.getMyDate();
+    res.render("list",{listTitle:today,newListItems:newItems});
 });
 app.post("/",(req,res)=>{
     let item=req.body.item;
